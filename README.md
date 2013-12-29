@@ -67,6 +67,14 @@ Alternatively, if you have access to [MSDN](http://msdn.microsoft.com) or TechNe
 5. Move `en_windows_server_2008_r2_with_sp1_x64_dvd_617601.iso` to the `iso` directory
 6. Run `packer build windows_2008_r2.json`
 
+## Added in this fork
+
+### To create a vagrant box with Windows 2008 R2 and SQL 2008 R2 (This has been tested with the Enterprise edition only)
+
+1. Copy the windows and sql iso files to the ./iso folder per the instructions above. You can find the names of these files in the windows_2008_r2_sql_2008_r2.json configuration file. You also need to update the windows iso hash to match the specified iso file in the configuration file
+2. Specify "PID=<SQL 2008 R2 Product Key>" in the ./answer_files/2008_r2_sql/Configuration.ini file
+3. Run "packer build windows_2008_r2_sql_2008_r2.json"
+
 ### Contributing
 
 Pull requests welcomed. Please ensure you create your edits in a branch off of the `develop` branch, not the `master` branch.
