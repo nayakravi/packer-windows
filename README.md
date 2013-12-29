@@ -30,10 +30,10 @@ The scripts in this repo will install all Windows updates – by default – dur
 
 ```
 <SynchronousCommand wcm:action="add">
-	<CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1</CommandLine>
-	<Description>Install Windows Updates</Description>
-	<Order>100</Order>
-	<RequiresUserInput>true</RequiresUserInput>
+  <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1</CommandLine>
+  <Description>Install Windows Updates</Description>
+  <Order>100</Order>
+  <RequiresUserInput>true</RequiresUserInput>
 </SynchronousCommand>
 ```
 
@@ -41,7 +41,7 @@ Doing so will give you hours back in your day, which is a good thing.
 
 ### OpenSSH / WinRM
 
-Currently, [Packer](http://packer.io) has a single communitator that uses SSH. This means we need an SSH server installed on Windows - which is not optimal as we could use WinRM to communicate with the Windows VM. In the short term, everything works well with SSH; in the medium term, work is underway on a WinRM communicator for Packer. 
+Currently, [Packer](http://packer.io) has a single communitator that uses SSH. This means we need an SSH server installed on Windows - which is not optimal as we could use WinRM to communicate with the Windows VM. In the short term, everything works well with SSH; in the medium term, work is underway on a WinRM communicator for Packer.
 
 If you have serious objections to OpenSSH being installed, you can always add another stage to your build pipeline:
 
@@ -51,11 +51,11 @@ If you have serious objections to OpenSSH being installed, you can always add an
 
 ### Using .box Files With Vagrant
 
-If you are going to use the .box files produced by the project with Vagrant, you should also use the [vagrant-windows](https://github.com/WinRb/vagrant-windows) plugin, which will ensure Vagrant works well with Windows. This will also allow Vagrant to use WinRM to communicate with the box. 
+If you are going to use the .box files produced by the project with Vagrant, you should also use the [vagrant-windows](https://github.com/WinRb/vagrant-windows) plugin, which will ensure Vagrant works well with Windows. This will also allow Vagrant to use WinRM to communicate with the box.
 
 ### Getting Started
 
-Currently, this repo leverages trial versions of Windows 2008 R2 / 2012 / 2012 R2. 
+Currently, this repo leverages trial versions of Windows 2008 R2 / 2012 / 2012 R2.
 
 
 Alternatively, if you have access to [MSDN](http://msdn.microsoft.com) or TechNet, you can download the ISO images Microsoft makes available there and place them in the `iso` directory. If you do so, you should update the relevent `.json` file, setting `iso_url` to `"./iso/<path to your iso>.iso"` and `iso_checksum` to `<the md5 of your iso>` after following these instructions:
@@ -67,14 +67,15 @@ Alternatively, if you have access to [MSDN](http://msdn.microsoft.com) or TechNe
 5. Move `en_windows_server_2008_r2_with_sp1_x64_dvd_617601.iso` to the `iso` directory
 6. Run `packer build windows_2008_r2.json`
 
-## Added in this fork
-
-### To create a vagrant box with Windows 2008 R2 and SQL 2008 R2 (This has been tested with the Enterprise edition only)
-
-1. Copy the windows and sql iso files to the ./iso folder per the instructions above. You can find the names of these files in the windows_2008_r2_sql_2008_r2.json configuration file. You also need to update the windows iso hash to match the specified iso file in the configuration file
-2. Specify "PID=<SQL 2008 R2 Product Key>" in the ./answer_files/2008_r2_sql/Configuration.ini file
-3. Run "packer build windows_2008_r2_sql_2008_r2.json"
-
 ### Contributing
 
 Pull requests welcomed. Please ensure you create your edits in a branch off of the `develop` branch, not the `master` branch.
+
+### Added in this fork
+
+###### To create a vagrant box with Windows 2008 R2 and SQL 2008 R2 (This has been tested with the Enterprise edition only)
+
+1. Copy the windows and sql iso files to the `./iso` directory per the instructions above. You can find the names of these files in the `windows_2008_r2_sql_2008_r2.json` configuration file. You also need to update the windows installer iso hash to match the specified iso file in the configuration file
+2. Specify `PID = <SQL 2008 R2 Product Key>` in the `./answer_files/2008_r2_sql/Configuration.ini` file
+3. The settings in Configuration.ini file are very specific for my requirements. Please change these to suit yours. You can use the SQL server installer to do this in an intuitive fashion
+3. Run `packer build windows_2008_r2_sql_2008_r2.json`
